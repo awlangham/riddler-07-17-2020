@@ -1,7 +1,11 @@
 class Season {
 	private static final double battingAverage = 0.350;
 	private static final int numAtBats = 4;
-	private static final int numGames = 60;
+	private int numGames;
+
+	Season(int _numGames) {
+		numGames = _numGames;
+	}
 
 	private static boolean swing() {
 		return Math.random() < battingAverage;
@@ -17,7 +21,7 @@ class Season {
 		return hits;
 	}
 
-	public static double playSeason() {
+	public double playSeason() {
 		int hits = 0;
 		for (int i = 0; i < numGames; ++i) {
 			hits += playGame();
@@ -28,15 +32,19 @@ class Season {
 
 public class Express {
 	public static void main(String[] args) {
-		Season s1 = new Season();
-		int numSamples = 1000000;
+		getOdds(10000, 60);
+		getOdds(10000, 162);
+	}
+
+	private static void getOdds(int numSamples, int numGames) {
+		Season s = new Season(numGames);
 		int seasonsOver400 = 0;
 		for (int i = 0; i < numSamples; ++i) {
-			if (s1.playSeason() >= 0.400) {
+			if (s.playSeason() >= 0.400) {
 				++seasonsOver400;
 			}
 		}
 		double oddsOfOver400 = ((double) seasonsOver400) / numSamples;
-		System.out.println("For N = " + numSamples + ": " + oddsOfOver400);
+		System.out.println("For N = " + numSamples + ": " + oddsOfOver400 + " for a " + numGames + "-game season.");
 	}
 }
