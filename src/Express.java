@@ -1,7 +1,7 @@
 class Season {
 	private static final double battingAverage = 0.350;
 	private static final int numAtBats = 4;
-	private int numGames;
+	private final int numGames;
 
 	Season(int _numGames) {
 		numGames = _numGames;
